@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kns"
+version = "0.1.0"
+readme = "README.md"
+dependencies = [
+    "kedro>=1.0,<1.1",
+    "kedro-datasets>=1.0.0"
+]
+
+[project.scripts]
+kns = "kns.__main__:main"
+
+[project.entry-points."kedro.hooks"]
+
+[project.optional-dependencies]
+docs = [
+    "docutils<0.21",
+    "sphinx>=5.3,<7.3",
+    "sphinx_rtd_theme==2.0.0",
+    "nbsphinx==0.8.1",
+    "sphinx-autodoc-typehints==1.20.2",
+    "sphinx_copybutton==0.5.2",
+    "ipykernel>=5.3, <7.0",
+    "Jinja2<3.2.0",
+    "myst-parser>=1.0,<2.1"
+]
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
+version = {attr = "kns.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
+[kedro]
+project_name = "kns"
+package_name = "kns"
+
+[tool.pytest.ini_options]
+addopts = """
+--cov-report term-missing \
+--cov src/kns -ra"""
+
+[tool.coverage.report]
+fail_under = 0
+show_missing = true
+exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff]
+line-length = 88
+show-fixes = true
+select = [
+    "F",   # Pyflakes
+    "W",   # pycodestyle
+    "E",   # pycodestyle
+    "I",   # isort
+    "UP",  # pyupgrade
+    "PL",  # Pylint
+    "T201", # Print Statement
+]
+ignore = ["E501"]
+
+[tool.kedro_telemetry]
+project_id = "7d1f3e1bdc46497b9c66cc95b8a23829"
