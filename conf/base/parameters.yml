@@ -1,0 +1,96 @@
+# This is a boilerplate parameters config generated for pipeline 'ddqn_daafa_4_features'
+# using Kedro 0.19.7.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://docs.kedro.org/en/0.19.7/configuration/parameters.html
+
+n_cnode_features: 4
+n_vnf_features: 4
+
+infragen:
+  infrastructure: 1
+  n_cnodes: 6 #infrastructure=1 => n_cnodes=6
+  train_seed: 1
+  eval_seed: 99999999
+  min_cpu: 150.0
+  max_cpu: 300.0
+  min_ram: 150.0
+  max_ram: 300.0
+  min_stor: 150.0
+  max_stor: 300.0
+  cnodePl_min_bw: 500.0
+  cnodePl_max_bw: 500.0
+  corePl_min_bw: 300000.0
+  corePl_max_bw: 300000.0
+  min_latency: 4.0
+  max_latency: 8.0
+
+nsprgen:
+  train_seed: 8888888888
+  eval_seed: 7777777777
+  rq_min_cpu: 3.0
+  rq_max_cpu: 10.0
+  rq_min_ram: 3.0
+  rq_max_ram: 10.0
+  rq_min_stor: 3.0
+  rq_max_stor: 10.0
+  rq_min_bw: 3.0
+  rq_max_bw: 7.0
+  min_vnfs: 15
+  max_vnfs: 15
+  min_duration: 3000000
+  max_duration: 3000000
+  min_batch_nsprs: 1
+  max_batch_nsprs: 1
+  priorities: [1, 2, 3]
+  nspr_types: ['hard']
+
+envs:
+  failed_nspr_strategy: 2 #1 -> delayable NSPRs and 2 -> non delayable NSPRs (success or never process again)
+  keep_information: true
+
+nn:
+  hidden_sizes: [216, 216]
+  activation_func: 'relu'
+
+opt:
+  learning_rate: 4e-05
+  betas: [0.9, 0.99]
+  weight_decay: 0.0
+
+rbuf:
+  capacity: 1000000
+  alpha: 1.0
+  beta0: 0.4
+  betasteps: 15
+  epsilon: 0.1
+  normalize_by_max: 'batch'
+  num_steps: 1
+
+explor:
+  start_epsilon: 1.0
+  end_epsilon: 0.35
+  decay_steps: 30000
+
+ddqn:
+  gpu: 0
+  gamma: 0.99
+  replay_start_size: 25000
+  minibatch_size: 128
+  update_interval: 1
+  clip_delta: false
+  target_update_method: 'hard'
+  target_update_interval: 15000
+  soft_update_tau: 0.0005
+  n_times_update: 1
+  batch_accumulator: 'mean'
+  max_grad_norm: null
+
+apply_zscore: false
+
+loop:
+  max_episodes: 3001
+  max_iterations: null
+  eval_max_iterations: null
+  eval_episodes_interval: 3
+  performance_record_file: 'performance.txt'
